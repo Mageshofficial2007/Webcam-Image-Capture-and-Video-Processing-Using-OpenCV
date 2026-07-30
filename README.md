@@ -45,21 +45,91 @@ Resize the frame and rotate it using OpenCV functions, then display the processe
 #### Register No: 212224230145
 
 
-## Output
-
 ### i) Write the frame as JPG image
-Captured image is saved as `captured_image.jpg`
+```python
+import cv2
+import matplotlib.pyplot as plt
+from IPython.display import clear_output
+import time
+cap = cv2.VideoCapture(0)
+ret, frame = cap.read()
+if ret:
+    cv2.imwrite("captured_frame.jpg", frame)
+cap.release()
+captured_image = cv2.imread('captured_frame.jpg')
+plt.imshow(captured_image[:,:,::-1])
+plt.title('Captured Frame')
+plt.axis('off')
+plt.show()
+```
+## Output
+<img width="732" height="525" alt="Screenshot 2026-07-30 085843" src="https://github.com/user-attachments/assets/e6df1762-ac81-4d3c-996f-f9cb29bd1762" />
+
 
 ### ii) Display the video
-Live webcam video is displayed
+
+```python
+cap = cv2.VideoCapture(0)
+
+for i in range(50):
+    ret, frame = cap.read()
+    if not ret:
+        break
+    frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    clear_output(wait=True)
+    plt.imshow(frame_rgb)
+    plt.axis('off')
+    plt.show()
+    time.sleep(0.05)
+
+cap.release()
+```
+## Output
+
+<img width="725" height="511" alt="Screenshot 2026-07-30 085849" src="https://github.com/user-attachments/assets/50a869db-00af-4bc3-ba33-ea7f7a9e2f26" />
 
 ### iii) Display the video by resizing the window
-Video is shown in resized resolution (640 × 480)
+```python
+cap = cv2.VideoCapture(0)
+
+for i in range(50):
+    ret, frame = cap.read()
+    if not ret:
+        break
+    resized_frame = cv2.resize(frame, (100, 150))  # Resize to 320x240
+    frame_rgb = cv2.cvtColor(resized_frame, cv2.COLOR_BGR2RGB)
+    clear_output(wait=True)
+    plt.imshow(frame_rgb)
+    plt.axis('off')
+    plt.show()
+    time.sleep(0.05)
+
+cap.release()
+```
+## Output
+<img width="547" height="509" alt="Screenshot 2026-07-30 085858" src="https://github.com/user-attachments/assets/4d0261a0-4410-4e45-97da-1a327b31ed66" />
 
 ### iv) Rotate and display the video
-Video is displayed after rotation (90° clockwise)
+```python
+cap = cv2.VideoCapture(0)
 
----
+for i in range(50):
+    ret, frame = cap.read()
+    if not ret:
+        break
+    rotated_frame = cv2.rotate(frame, cv2.ROTATE_90_CLOCKWISE)
+    frame_rgb = cv2.cvtColor(rotated_frame, cv2.COLOR_BGR2RGB)
+    clear_output(wait=True)
+    plt.imshow(frame_rgb)
+    plt.axis('off')
+    plt.show()
+    time.sleep(0.05)
+
+cap.release()
+```
+## Output
+<img width="444" height="526" alt="Screenshot 2026-07-30 085904" src="https://github.com/user-attachments/assets/bfcba237-0b92-40e4-9ceb-b5864f536fdb" />
+
 
 ## Result
 
